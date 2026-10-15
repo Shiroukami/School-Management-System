@@ -11,6 +11,7 @@ package com.mycompany.schoolmanagementsystem;
 public class SchoolManagementSystem {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        homeMenu sMS = new homeMenu();
+        sMS.setVisible(true);
     }
 }

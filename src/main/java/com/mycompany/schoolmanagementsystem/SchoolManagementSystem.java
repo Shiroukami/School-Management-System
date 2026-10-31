@@ -1,16 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.mycompany.schoolmanagementsystem;
+import java.sql.*;
 
-/**
- *
- * @author JM
- */
 public class SchoolManagementSystem {
-
     public static void main(String[] args) {
+        Connection c = dbConnection.getConnections();
+        System.out.println("Success: Java Is Connected to Mysql");
+        
         homeMenu sMS = new homeMenu();
         sMS.setVisible(true);
     }

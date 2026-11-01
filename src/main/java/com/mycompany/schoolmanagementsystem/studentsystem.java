@@ -1,26 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.schoolmanagementsystem;
-
-/**
- *
- * @author Monica Caluya
- */
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
-
-
-
-/**
- *
- * @author Monica Caluya
- */
-public class studentsystem extends JFrame {
+public class studentsystem extends JFrame implements ActionListener {
 
  
-    private JButton btnSearch, btnAdd, btnEdit, btnDelete;
+    private JButton btnSearch, btnAdd, btnEdit, btnDelete, btnBack;
     private JLabel lblTitle, lblSearch;
     private JTextField txtSearch;
     private JTable tblStudents;
@@ -28,42 +14,38 @@ public class studentsystem extends JFrame {
 
     
     studentsystem(){
-        initComponents(); 
-    }
-
-    private void initComponents() {
         
         setTitle("School Management System");
-        setSize(1350, 900);
+        setSize(1080, 720);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
         // Back Button
-        JButton btnBack = new JButton("<- Back To Home");
-        btnBack.setBounds(20, 60, 150, 40);
+        btnBack = new JButton("<- Back To Home");
+        btnBack.setBounds(10, 20, 150, 50);
         add(btnBack);
 
         // Title
-        lblTitle = new JLabel("School Management System");
-        lblTitle.setFont(new java.awt.Font("Arial", 1, 28));
-        lblTitle.setBounds(500, 40, 400, 40);
+        lblTitle = new JLabel("Student Management");
+        lblTitle.setFont(new java.awt.Font("Arial", 1, 18));
+        lblTitle.setBounds(450, 40, 400, 40);
         add(lblTitle);
 
         // Search Label
         lblSearch = new JLabel("Search:");
-        lblSearch.setFont(new java.awt.Font("Arial", 1, 24));
-        lblSearch.setBounds(380, 150, 120, 40);
+        lblSearch.setFont(new java.awt.Font("Arial", 1, 18));
+        lblSearch.setBounds(300, 100, 75, 30);
         add(lblSearch);
 
         // Search TextField
         txtSearch = new JTextField();
-        txtSearch.setBounds(500, 150, 380, 40);
+        txtSearch.setBounds(375, 100, 325, 30);
         add(txtSearch);
         
         // Search Button
         btnSearch = new JButton("Search");
-        btnSearch.setBounds(910, 150, 120, 40);
+        btnSearch.setBounds(725, 100, 75, 30);
         add(btnSearch);
 
         // Table
@@ -77,25 +59,33 @@ public class studentsystem extends JFrame {
         );
 
         scrollPane = new JScrollPane(tblStudents);
-        scrollPane.setBounds(120, 230, 1100, 380);
+        scrollPane.setBounds(100, 150, 880, 300);
         add(scrollPane);
         
         // Bottom Buttons
         btnAdd = new JButton("Add Student");
-        btnAdd.setBounds(370, 670, 160, 50);
+        btnAdd.setBounds(300, 500, 130, 50);
         add(btnAdd);
 
         btnEdit = new JButton("Edit Student");
-        btnEdit.setBounds(580, 670, 160, 50);
+        btnEdit.setBounds(460, 500, 130, 50);
         add(btnEdit);
 
         btnDelete = new JButton("Delete Student");
-        btnDelete.setBounds(790, 670, 160, 50);
+        btnDelete.setBounds(620, 500, 130, 50);
         add(btnDelete);
+        
+        btnBack.addActionListener(this);
     }
 
-    
-    
-    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == btnBack){
+            homeMenu sMS = new homeMenu();
+            sMS.setVisible(true);
+            this.dispose();
+        }
+    }
+ 
 }
 

@@ -1,17 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.schoolmanagementsystem;
-
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
-/**
- *
- * @author JM
- */
-public class homeMenu extends JFrame{
+public class homeMenu extends JFrame implements ActionListener{
     // Variables
     private JLabel title, studcnt, coursecnt, subtitle;
     private JButton manageStud, manageCourse, manageGrades, genReport;
@@ -69,5 +62,16 @@ public class homeMenu extends JFrame{
         genReport.setBounds(535, 395, 320, 100);
         genReport.setFont(new Font("Arial", Font.BOLD, 18));
         add(genReport);
+        
+        manageStud.addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == manageStud ){
+            studentsystem studsys = new studentsystem();
+            studsys.setVisible(true);
+            this.dispose();
+        }
     }
 }

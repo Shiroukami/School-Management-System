@@ -8,5 +8,7 @@ public class SchoolManagementSystem {
         
         homeMenu sMS = new homeMenu();
         sMS.setVisible(true);
+        
+       
     }
 }

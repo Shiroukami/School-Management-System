@@ -65,6 +65,7 @@ public class homeMenu extends JFrame implements ActionListener{
         
         manageStud.addActionListener(this);
         manageCourse.addActionListener(this);
+        manageGrades.addActionListener(this);
     }
 
     @Override
@@ -78,6 +79,12 @@ public class homeMenu extends JFrame implements ActionListener{
             manageCourse course = new manageCourse();
             course.setVisible(true);
             this.dispose();
+            
+        }else if(e.getSource() == manageGrades){
+            manageGrades course = new manageGrades();
+            course.setVisible(true);
+            this.dispose();
+            
         }
     }
 }

@@ -2,6 +2,7 @@ package com.mycompany.schoolmanagementsystem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class studentsystem extends JFrame implements ActionListener {
 
@@ -9,6 +10,8 @@ public class studentsystem extends JFrame implements ActionListener {
     private JButton btnSearch, btnAdd, btnEdit, btnDelete, btnBack;
     private JLabel lblTitle, lblSearch;
     private JTextField txtSearch;
+    private DefaultTableModel tblmdlstudents;
+    private static final String[] tblcolstudents = {"Student ID", "Student Name", "Section"};
     private JTable tblStudents;
     private JScrollPane scrollPane;
 
@@ -49,15 +52,9 @@ public class studentsystem extends JFrame implements ActionListener {
         add(btnSearch);
 
         // Table
-        tblStudents = new JTable(
-            new javax.swing.table.DefaultTableModel(
-                new Object[][]{},
-                new String[]{
-                    "Student ID", "Name", "Course"
-                }
-            )
-        );
-
+        tblmdlstudents = new DefaultTableModel(tblcolstudents, 0);
+        tblStudents = new JTable(tblmdlstudents);
+        tblStudents.setFillsViewportHeight(true);
         scrollPane = new JScrollPane(tblStudents);
         scrollPane.setBounds(100, 150, 880, 300);
         add(scrollPane);

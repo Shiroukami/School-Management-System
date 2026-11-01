@@ -6,6 +6,7 @@ import java.util.*;
 
 public class schoolData {
     public static ArrayList<students> students =  new ArrayList<>();
+    public static ArrayList<courses> courses =new ArrayList<>();
     
     
     
@@ -24,6 +25,21 @@ public class schoolData {
         }
     }
     
+    public static void loadCourses(){
+        courses.clear();
+        String sql = "SELECT * FROM courses";
+        try (Connection kon = dbConnection.getConnections();
+                Statement stmt = kon.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)){
+            while (rs.next()){
+                courses.add(new courses(rs.getString("course_id"), rs.getString("course_name")));
+            }
+            
+        }catch(SQLException e){
+                e.printStackTrace();
+                } 
+    }
+    
     
     //Insert to Database
     public static void addStudentToDatabase(String name, String sectionID){
@@ -37,11 +53,23 @@ public class schoolData {
             System.out.println("Student added Successfully!");
             loadStudents();
         }catch (SQLException e){
-            System.out.println("FAILED TO INSERT STUDENT!");
-            System.out.println("SQL Error Message: " + e.getMessage());
-            System.out.println("Error Code: " + e.getErrorCode());
+            e.printStackTrace();
         }
                 
+    }
+    
+    public static void addCourseToDatabase(String courseID, String coursename){
+        String sql = "INSERT INTO courses (course_id, course_name) VALUES (?,?)";
+        try(Connection kon = dbConnection.getConnections();
+                PreparedStatement pstmt = kon.prepareStatement(sql)){
+            pstmt.setString(1,courseID);
+            pstmt.setString(2,coursename);
+            pstmt.executeUpdate();
+            System.out.println("Course added Successfully");
+            loadCourses();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
     
     
@@ -64,6 +92,24 @@ public class schoolData {
         }
     }
     
+    public static void updateCourse(String courseID, String newCourseID, String newCoursename){
+        String sql = "UPDATE courses SET course_id = ?, course_name = ? WHERE course_id = ?";
+        
+        try(Connection kon = dbConnection.getConnections();
+             PreparedStatement pstmt = kon.prepareStatement(sql)){
+            
+            pstmt.setString(1, newCourseID);
+            pstmt.setString(2, newCoursename);
+            pstmt.setString(3, courseID);
+            pstmt.executeUpdate();
+            System.out.println("Course Successfully updated in the database!");
+            loadCourses();
+        }catch(SQLException e){
+            System.out.println("Failed to update course.");
+            e.printStackTrace();
+        }
+    }
+    
     //Delete From DataBase
     public static void deleteStudent(int studentId){
         String sql = "DELETE FROM students WHERE student_id = ?";
@@ -76,6 +122,20 @@ public class schoolData {
             loadStudents();
         }catch(SQLException e){
             System.out.println("Failed to delete student from the database");
+            e.printStackTrace();
+        }
+    }
+    
+    public static void deleteCourse(String courseID){
+        String sql = "DELETE FROM courses WHERE course_id = ?";
+        try(Connection kon = dbConnection.getConnections();
+                PreparedStatement pstmt = kon.prepareStatement(sql)){
+            
+            pstmt.setString(1, courseID);
+            pstmt.executeUpdate();
+            System.out.println("Course Deleted Successfully from the Database");
+        }catch(SQLException e){
+            System.out.println("Failed to delete course from the database");
             e.printStackTrace();
         }
     }

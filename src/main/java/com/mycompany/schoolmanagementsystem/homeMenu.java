@@ -66,23 +66,29 @@ public class homeMenu extends JFrame implements ActionListener{
         manageStud.addActionListener(this);
         manageCourse.addActionListener(this);
         manageGrades.addActionListener(this);
+        genReport.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == manageStud ){
-            studentsystem studsys = new studentsystem();
-            studsys.setVisible(true);
+            studentsystem window = new studentsystem();
+            window.setVisible(true);
             this.dispose();
             
         }else if(e.getSource() == manageCourse){
-            manageCourse course = new manageCourse();
-            course.setVisible(true);
+            manageCourse window = new manageCourse();
+            window.setVisible(true);
             this.dispose();
             
         }else if(e.getSource() == manageGrades){
-            manageGrades course = new manageGrades();
-            course.setVisible(true);
+            manageGrades window = new manageGrades();
+            window.setVisible(true);
+            this.dispose();
+            
+        }else if(e.getSource() == genReport){
+            manageReports window= new manageReports();
+            window.setVisible(true);
             this.dispose();
             
         }

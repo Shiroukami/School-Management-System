@@ -23,7 +23,7 @@ public class dbConnection {
     public static Connection getConnections(){
         try{
             createDatabase();
-            Connection kon = DriverManager.getConnection(URL + DB_NAME + "?useSSL=false&serverTimezone=UTC", user, Pass);
+            Connection kon = DriverManager.getConnection(URL + DB_NAME + "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC", user, Pass);
             System.out.println("Successfully Connected to The Database!");
             return kon;
         }catch(SQLException e){

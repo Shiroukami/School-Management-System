@@ -3,7 +3,7 @@ import com.mysql.cj.util.DnsSrv;
 import java.sql.*;
 public class dbConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/";
-    private static final String DB_NAME = "school_management_system";
+    private static final String DB_NAME = "school_management_db";
     private static final String user = "root";
     private static final String Pass = "";
     

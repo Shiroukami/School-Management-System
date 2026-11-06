@@ -10,6 +10,8 @@ public class SchoolManagementSystem {
         homeMenu sMS = new homeMenu();
         sMS.setVisible(true);
         
-       
+        schoolData.deleteSection("DIT 1-1");
+        schoolData.deleteSection("DIT 3-1");
+        
     }
 }

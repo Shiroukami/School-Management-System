@@ -6,7 +6,8 @@ import java.util.*;
 
 public class schoolData {
     public static ArrayList<students> students =  new ArrayList<>();
-    public static ArrayList<courses> courses =new ArrayList<>();
+    public static ArrayList<courses> courses = new ArrayList<>();
+    public static ArrayList<sections> sections = new ArrayList<>();
     
     
     
@@ -38,6 +39,21 @@ public class schoolData {
         }catch(SQLException e){
                 e.printStackTrace();
                 } 
+    }
+    
+    public static void loadSections(){
+        sections.clear();
+        String sql = "SELECT * FROM sections";
+        try (Connection kon = dbConnection.getConnections();
+                Statement stmt = kon.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)){
+            while(rs.next()){
+                sections.add(new sections(rs.getString("section_id"), rs.getString("section_name"),
+                        rs.getString("schedule_days")));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
     
     
@@ -72,6 +88,20 @@ public class schoolData {
         }
     }
     
+    public static void addSectionToDatabase(String sectionID, String sectionName, String scheduleDays){
+        String sql = "INSERT INTO sections (section_id, section_name, schedule_days) VALUES (?,?,?)";
+        try(Connection kon = dbConnection.getConnections();
+                PreparedStatement pstmt = kon.prepareStatement(sql)){
+            pstmt.setString(1, sectionID);
+            pstmt.setString(2, sectionName);
+            pstmt.setString(3, scheduleDays);
+            pstmt.executeUpdate();
+            System.out.println("Section added Successfully");
+            loadSections();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
     
     //Edit Database
     public static void updateStudent(int studentId, String newName, String newSectionId) {
@@ -92,14 +122,14 @@ public class schoolData {
         }
     }
     
-    public static void updateCourse(String courseID, String newCourseID, String newCoursename){
+    public static void updateCourse(String courseID, String newCourseID, String newCourseName){
         String sql = "UPDATE courses SET course_id = ?, course_name = ? WHERE course_id = ?";
         
         try(Connection kon = dbConnection.getConnections();
              PreparedStatement pstmt = kon.prepareStatement(sql)){
             
             pstmt.setString(1, newCourseID);
-            pstmt.setString(2, newCoursename);
+            pstmt.setString(2, newCourseName);
             pstmt.setString(3, courseID);
             pstmt.executeUpdate();
             System.out.println("Course Successfully updated in the database!");
@@ -110,6 +140,22 @@ public class schoolData {
         }
     }
     
+    public static void updateSection(String sectionID, String newSectionID, String newSectionName, String newScheduleDays){
+        String sql = "UPDATE sections SET section_id = ?, section_name = ?, schedule_days = ? WHERE section_id = ?";
+        try(Connection kon = dbConnection.getConnections();
+             PreparedStatement pstmt = kon.prepareStatement(sql)){
+            
+            pstmt.setString(1, newSectionID);
+            pstmt.setString(2, newSectionName);
+            pstmt.setString(3, newScheduleDays);
+            pstmt.setString(4, sectionID);
+            pstmt.executeUpdate();
+            System.out.println("Section Successfull updated in the database!");
+            loadSections();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
     //Delete From DataBase
     public static void deleteStudent(int studentId){
         String sql = "DELETE FROM students WHERE student_id = ?";
@@ -136,6 +182,20 @@ public class schoolData {
             System.out.println("Course Deleted Successfully from the Database");
         }catch(SQLException e){
             System.out.println("Failed to delete course from the database");
+            e.printStackTrace();
+        }
+    }
+    
+    public static void deleteSection(String sectionID){
+        String sql = "DELETE FROM sections WHERE section_id = ?";
+        try(Connection kon = dbConnection.getConnections();
+                PreparedStatement pstmt = kon.prepareStatement(sql)){
+            
+            pstmt.setString(1, sectionID);
+            pstmt.executeUpdate();
+            System.out.println("Section Deleted Successfully from the Database");
+        }catch(SQLException e){
+            System.out.println("Failed to delete section from the database");
             e.printStackTrace();
         }
     }

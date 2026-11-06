@@ -14,13 +14,17 @@ public class students {
     public int getStudentID(){
         return studentID;     
     }
-    
-    public String getstudentname(){
+    public String getstudentName(){
         return studentname;     
     }
-    
     public String getSectionID(){
         return sectionID;     
     }
     
+    public void setStudentID(int studentID){
+        this.studentID = studentID;
+    }
+    public void setStudentName(String studentName){
+        this.studentname = studentName;
+    }
 }

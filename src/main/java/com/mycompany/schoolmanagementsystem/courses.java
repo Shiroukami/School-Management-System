@@ -13,11 +13,12 @@ public class courses {
     public String getCourseID(){
         return courseID;
     }
-    public void setCourseID(String courseID){
-        this.courseID = courseID;
-    }
     public String getCourseName(){
         return coursename;
+    }
+    
+    public void setCourseID(String courseID){
+        this.courseID = courseID;
     }
     public void setCourseName(String coursename){
         this.coursename = coursename;
